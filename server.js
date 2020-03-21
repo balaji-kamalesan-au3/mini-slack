@@ -132,7 +132,7 @@ app.route("/availablechannels")
             if(err) throw err;
             else{
                 let dbo = db.db(dbName);
-                dbo.collection("availablechannels").find({}).toArray(function(err,result){
+                dbo.collection("availablechannels").find({},{name:1, _id:0}).toArray(function(err,result){
                     if(err) throw err;
                     else {
                         res.json(result);
@@ -145,7 +145,7 @@ app.route("/availablechannels")
         MongoClient.connect(url,function(err, db){
             if(err) throw err;
             else{
-                let body = {name : req.body.name, users :[],tags : req.body.tags}
+                let body = {name : req.body.name,tags : req.body.tags}
 
                 let dbo = db.db(dbName);
                 dbo.collection("availablechannels").insert(body,function(err,result){
